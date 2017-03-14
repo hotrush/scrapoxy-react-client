@@ -154,12 +154,7 @@ class Client
      */
     public function getScaling()
     {
-        return $this->sendRequest('GET', 'scaling')
-            ->then(
-                function($response) {
-                    return $this->decodeResponse($response);
-                }
-            );
+        return $this->sendRequest('GET', 'scaling');
     }
 
     /**
@@ -177,12 +172,7 @@ class Client
                         'min' => $scaling['min'],
                         'required' => $scaling['max'],
                         'max' => $scaling['max'],
-                    ])
-                    ->then(
-                        function($result) {
-                            return $this->decodeResponse($result);
-                        }
-                    );
+                    ]);
                 }
             );
     }
@@ -202,12 +192,7 @@ class Client
                         'min' => $scaling['min'],
                         'required' => $scaling['min'],
                         'max' => $scaling['max'],
-                    ])
-                        ->then(
-                            function($result) {
-                                return $this->decodeResponse($result);
-                            }
-                        );
+                    ]);
                 }
             );
     }
@@ -227,12 +212,7 @@ class Client
      */
     public function scale(array $scaling)
     {
-        return $this->sendRequest('PATCH', 'scaling', $scaling)
-            ->then(
-                function ($response) {
-                    return $this->decodeResponse($response);
-                }
-            );
+        return $this->sendRequest('PATCH', 'scaling', $scaling);
     }
 
     /**
@@ -243,12 +223,7 @@ class Client
      */
     public function getConfig()
     {
-        return $this->sendRequest('GET', 'config')
-            ->then(
-                function($response) {
-                    return $this->decodeResponse($response);
-                }
-            );
+        return $this->sendRequest('GET', 'config');
     }
 
     /**
@@ -260,12 +235,7 @@ class Client
      */
     public function updateConfig(array $config = [])
     {
-        return $this->sendRequest('PATCH', 'config', $config)
-            ->then(
-                function ($response) {
-                    return $this->decodeResponse($response);
-                }
-            );
+        return $this->sendRequest('PATCH', 'config', $config);
     }
 
     /**
@@ -276,12 +246,7 @@ class Client
      */
     public function getInstances()
     {
-        return $this->sendRequest('GET', 'instances')
-            ->then(
-                function ($response) {
-                    return $this->decodeResponse($response);
-                }
-            );
+        return $this->sendRequest('GET', 'instances');
     }
 
     /**
@@ -295,11 +260,6 @@ class Client
     {
         return $this->sendRequest('POST', 'instances/stop', [
             'name' => $name
-        ])
-            ->then(
-                function ($response) {
-                    return $this->decodeResponse($response);
-                }
-            );
+        ]);
     }
 }
