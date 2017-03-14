@@ -1,0 +1,29 @@
+language: php
+sudo: false
+
+## Cache composer bits
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
+## PHP versions we test against
+php:
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - nightly
+  - hhvm
+
+## Update composer and run the appropriate composer command
+before_script:
+  - composer install
+
+## Run the actual test
+script:
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
