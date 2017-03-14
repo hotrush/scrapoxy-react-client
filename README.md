@@ -19,6 +19,7 @@ use React\EventLoop\Factory as LoopFactory;
 
 $loop = LoopFactory::create();
 $client = new Client('http://scrapoxy-host.com/api/', 'password', $loop);
+$loop->run();
 ```
 
 ### Get scaling
