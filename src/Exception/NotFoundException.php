@@ -2,4 +2,7 @@
 
 namespace Hotrush\ScrapoxyClient\Exception;
 
-class NotFoundException extends \Exception {}
+class NotFoundException extends \Exception 
+{
+    
+}

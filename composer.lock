@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "32ac6de8f1dcc1044c00b1d95d63c6c5",
+    "content-hash": "585a7adc432538b57df69220f78c0fb9",
     "packages": [
         {
             "name": "evenement/evenement",
@@ -742,56 +742,6 @@
                 "object graph"
             ],
             "time": "2017-01-26T22:05:40+00:00"
-        },
-        {
-            "name": "phake/phake",
-            "version": "1.0.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mlively/Phake.git",
-                "reference": "c5a3d7a75fc7431e8a5e21a922f084af95456bc6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mlively/Phake/zipball/c5a3d7a75fc7431e8a5e21a922f084af95456bc6",
-                "reference": "c5a3d7a75fc7431e8a5e21a922f084af95456bc6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "doctrine/common": "2.3.*",
-                "ext-soap": "*",
-                "hamcrest/hamcrest-php": "1.1.0",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "src"
-            ],
-            "license": [
-                "BSD"
-            ],
-            "authors": [
-                {
-                    "name": "Mike Lively",
-                    "email": "m@digitalsandwich.com"
-                }
-            ],
-            "description": "The Phake mock testing library",
-            "homepage": "https://github.com/mlively/Phake",
-            "keywords": [
-                "mock",
-                "testing"
-            ],
-            "time": "2015-01-27T15:48:39+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -2017,7 +1967,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.0"
+        "php": ">=5.6.0"
     },
     "platform-dev": []
 }

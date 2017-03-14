@@ -2,4 +2,7 @@
 
 namespace Hotrush\ScrapoxyClient\Exception;
 
-class ApiErrorException extends \Exception {}
+class ApiErrorException extends \Exception 
+{
+    
+}
