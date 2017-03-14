@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/hotrush/scrapoxy-react-client.svg?branch=master)](https://travis-ci.org/hotrush/scrapoxy-react-client)
 [![Coverage Status](https://coveralls.io/repos/github/hotrush/scrapoxy-react-client/badge.svg?branch=master)](https://coveralls.io/github/hotrush/scrapoxy-react-client?branch=master)
+[![Version](https://img.shields.io/github/release/hotrush/scrapoxy-react-client.svg)](https://github.com/hotrush/scrapoxy-react-client/releases/latest)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/hotrush/scrapoxy-react-client.svg)](https://packagist.org/packages/hotrush/scrapoxy-react-client)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/fb9ada42-1ed7-456e-aef0-d475a9a7227a/mini.png)](https://insight.sensiolabs.com/projects/fb9ada42-1ed7-456e-aef0-d475a9a7227a)
 
