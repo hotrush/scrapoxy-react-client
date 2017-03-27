@@ -118,7 +118,6 @@ class Client
             $response->on('error', function ($reason) use ($deferred) {
                 $deferred->reject($reason);
             });
-
         });
 
         $request->on('error', function ($reason) use ($deferred) {
