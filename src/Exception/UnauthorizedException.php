@@ -2,7 +2,6 @@
 
 namespace Hotrush\ScrapoxyClient\Exception;
 
-class UnauthorizedException extends \Exception 
+class UnauthorizedException extends \Exception
 {
-    
 }

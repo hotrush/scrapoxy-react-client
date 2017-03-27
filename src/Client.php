@@ -2,15 +2,15 @@
 
 namespace Hotrush\ScrapoxyClient;
 
-use React\HttpClient\Factory as HttpFactory;
-use React\EventLoop\Factory as LoopFactory;
-use React\Dns\Resolver\Factory;
-use React\EventLoop\LoopInterface;
-use React\HttpClient\Response;
-use React\Promise\Deferred;
 use Hotrush\ScrapoxyClient\Exception\ApiErrorException;
 use Hotrush\ScrapoxyClient\Exception\NotFoundException;
 use Hotrush\ScrapoxyClient\Exception\UnauthorizedException;
+use React\Dns\Resolver\Factory;
+use React\EventLoop\Factory as LoopFactory;
+use React\EventLoop\LoopInterface;
+use React\HttpClient\Factory as HttpFactory;
+use React\HttpClient\Response;
+use React\Promise\Deferred;
 
 class Client
 {
@@ -51,7 +51,7 @@ class Client
     /**
      * @return \React\EventLoop\ExtEventLoop|LoopFactory|\React\EventLoop\LibEventLoop|\React\EventLoop\LibEvLoop|\React\EventLoop\StreamSelectLoop
      */
-    public function getLoop() 
+    public function getLoop()
     {
         return $this->loop;
     }
@@ -67,7 +67,7 @@ class Client
             $factory = new HttpFactory();
             $this->client = $factory->create($this->loop, $dnsResolver);
         }
-        
+
         return $this->client;
     }
 
@@ -84,15 +84,14 @@ class Client
         $payload = $payload ? json_encode($payload) : null;
 
         $request = $this->getClient()->request($method, $this->apiUrl.$endpoint, [
-            'Authorization' => base64_encode($this->password),
-            'Content-Type' => 'application/json',
+            'Authorization'  => base64_encode($this->password),
+            'Content-Type'   => 'application/json',
             'Content-Length' => $payload ? strlen($payload) : 0,
         ]);
 
         $request->on('response', function (Response $response) use ($deferred) {
-
             $responseContent = null;
-            
+
             $response->on('data', function ($data) use ($response, &$responseContent) {
                 $responseContent = $response->getCode() >= 400 ? $data : $this->decodeResponse($data);
             });
@@ -112,10 +111,10 @@ class Client
                     }
                 } else {
                     $deferred->resolve($responseContent);
-                }                
+                }
             });
 
-            $response->on('error', function($reason) use ($deferred) {
+            $response->on('error', function ($reason) use ($deferred) {
                 $deferred->reject($reason);
             });
 
@@ -126,13 +125,15 @@ class Client
         });
 
         $request->end($payload ?: null);
-        
+
         return $deferred->promise();
     }
 
     /**
      * @param $response
+     *
      * @throws ApiErrorException
+     *
      * @return mixed
      */
     private function decodeResponse($response)
@@ -147,9 +148,10 @@ class Client
     }
 
     /**
-     * Get scaling info
-     * 
+     * Get scaling info.
+     *
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#get-the-scaling
+     *
      * @return \React\Promise\PromiseInterface|static
      */
     public function getScaling()
@@ -158,40 +160,42 @@ class Client
     }
 
     /**
-     * Update required instances number to maximum
+     * Update required instances number to maximum.
      *
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#update-the-scaling
+     *
      * @return \React\Promise\PromiseInterface
      */
     public function upScale()
     {
         return $this->getScaling()
             ->then(
-                function($scaling) {
+                function ($scaling) {
                     return $this->sendRequest('PATCH', 'scaling', [
-                        'min' => $scaling['min'],
+                        'min'      => $scaling['min'],
                         'required' => $scaling['max'],
-                        'max' => $scaling['max'],
+                        'max'      => $scaling['max'],
                     ]);
                 }
             );
     }
 
     /**
-     * Update required instances number to minimum
+     * Update required instances number to minimum.
      *
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#update-the-scaling
+     *
      * @return \React\Promise\PromiseInterface
      */
     public function downScale()
     {
         return $this->getScaling()
             ->then(
-                function($scaling) {
+                function ($scaling) {
                     return $this->sendRequest('PATCH', 'scaling', [
-                        'min' => $scaling['min'],
+                        'min'      => $scaling['min'],
                         'required' => $scaling['min'],
-                        'max' => $scaling['max'],
+                        'max'      => $scaling['max'],
                     ]);
                 }
             );
@@ -204,10 +208,12 @@ class Client
      *     "min" => 1,
      *     "max" => 5,
      *     "required" => 3,
-     * ]
+     * ].
      *
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#update-the-scaling
+     *
      * @param array $scaling
+     *
      * @return \React\Promise\PromiseInterface|static
      */
     public function scale(array $scaling)
@@ -216,9 +222,10 @@ class Client
     }
 
     /**
-     * Get scrapoxy config
+     * Get scrapoxy config.
      *
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#get-the-configuration
+     *
      * @return \React\Promise\PromiseInterface|static
      */
     public function getConfig()
@@ -227,10 +234,12 @@ class Client
     }
 
     /**
-     * Update scrapoxy config
+     * Update scrapoxy config.
      * 
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#update-the-configuration
+     *
      * @param array $config
+     *
      * @return \React\Promise\PromiseInterface|static
      */
     public function updateConfig(array $config = [])
@@ -239,9 +248,10 @@ class Client
     }
 
     /**
-     * Get all instances
+     * Get all instances.
      * 
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#get-all-instances
+     *
      * @return \React\Promise\PromiseInterface|static
      */
     public function getInstances()
@@ -250,16 +260,18 @@ class Client
     }
 
     /**
-     * Stop an instance by name
+     * Stop an instance by name.
      *
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#stop-an-instance
+     *
      * @param $name
+     *
      * @return \React\Promise\PromiseInterface
      */
     public function stopInstance($name)
     {
         return $this->sendRequest('POST', 'instances/stop', [
-            'name' => $name
+            'name' => $name,
         ]);
     }
 }
