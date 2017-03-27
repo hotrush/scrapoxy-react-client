@@ -75,6 +75,7 @@ class Client
      * @param $method
      * @param $endpoint
      * @param array $payload
+     *
      * @return \React\Promise\Promise|\React\Promise\PromiseInterface
      */
     private function sendRequest($method, $endpoint, array $payload = [])
@@ -120,7 +121,7 @@ class Client
 
         });
 
-        $request->on('error', function($reason) use ($deferred) {
+        $request->on('error', function ($reason) use ($deferred) {
             $deferred->reject($reason);
         });
 
@@ -235,7 +236,7 @@ class Client
 
     /**
      * Update scrapoxy config.
-     * 
+     *
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#update-the-configuration
      *
      * @param array $config
@@ -249,7 +250,7 @@ class Client
 
     /**
      * Get all instances.
-     * 
+     *
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#get-all-instances
      *
      * @return \React\Promise\PromiseInterface|static
