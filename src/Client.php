@@ -8,14 +8,14 @@ use Hotrush\ScrapoxyClient\Exception\UnauthorizedException;
 use React\Dns\Resolver\Factory;
 use React\EventLoop\Factory as LoopFactory;
 use React\EventLoop\LoopInterface;
-use React\HttpClient\Factory as HttpFactory;
 use React\HttpClient\Response;
 use React\Promise\Deferred;
+use React\Socket\Connector;
 
 class Client
 {
     /**
-     * @var \React\EventLoop\ExtEventLoop|\React\EventLoop\LibEventLoop|\React\EventLoop\LibEvLoop|\React\EventLoop\StreamSelectLoop
+     * @var LoopInterface
      */
     private $loop;
 
@@ -49,7 +49,7 @@ class Client
     }
 
     /**
-     * @return \React\EventLoop\ExtEventLoop|LoopFactory|\React\EventLoop\LibEventLoop|\React\EventLoop\LibEvLoop|\React\EventLoop\StreamSelectLoop
+     * @return LoopInterface
      */
     public function getLoop()
     {
@@ -64,8 +64,10 @@ class Client
         if (!$this->client) {
             $dnsResolverFactory = new Factory();
             $dnsResolver = $dnsResolverFactory->createCached('8.8.8.8', $this->loop);
-            $factory = new HttpFactory();
-            $this->client = $factory->create($this->loop, $dnsResolver);
+            $connector = new Connector($this->loop, [
+                'dns' => $dnsResolver,
+            ]);
+            $this->client = new \React\HttpClient\Client($this->loop, $connector);
         }
 
         return $this->client;
@@ -152,7 +154,7 @@ class Client
      *
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#get-the-scaling
      *
-     * @return \React\Promise\PromiseInterface|static
+     * @return \React\Promise\PromiseInterface
      */
     public function getScaling()
     {
@@ -214,7 +216,7 @@ class Client
      *
      * @param array $scaling
      *
-     * @return \React\Promise\PromiseInterface|static
+     * @return \React\Promise\PromiseInterface
      */
     public function scale(array $scaling)
     {
@@ -226,7 +228,7 @@ class Client
      *
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#get-the-configuration
      *
-     * @return \React\Promise\PromiseInterface|static
+     * @return \React\Promise\PromiseInterface
      */
     public function getConfig()
     {
@@ -240,7 +242,7 @@ class Client
      *
      * @param array $config
      *
-     * @return \React\Promise\PromiseInterface|static
+     * @return \React\Promise\PromiseInterface
      */
     public function updateConfig(array $config = [])
     {
@@ -252,7 +254,7 @@ class Client
      *
      * @doc http://scrapoxy.readthedocs.io/en/master/advanced/api/index.html#get-all-instances
      *
-     * @return \React\Promise\PromiseInterface|static
+     * @return \React\Promise\PromiseInterface
      */
     public function getInstances()
     {

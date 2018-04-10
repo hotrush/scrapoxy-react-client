@@ -3,8 +3,9 @@
 namespace Hotrush\ScrapoxyClient\Tests;
 
 use Hotrush\ScrapoxyClient\Client;
+use PHPUnit\Framework\TestCase;
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     public function testCreate()
     {
